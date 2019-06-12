@@ -5,7 +5,7 @@
     </head>
     <body>
     <nav class="navbar navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Laravel project</a>
+        <a class="navbar-brand" href="/trainer/create">Create</a>
     </nav>
     <div class="container">
     @yield('content')

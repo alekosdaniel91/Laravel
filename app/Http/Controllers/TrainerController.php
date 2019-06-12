@@ -36,6 +36,11 @@ class TrainerController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData=$request->validate([
+            'name'=>'required|max:10',
+            'avatar'=>'required|image',
+            'description'=>'required'
+        ]);
         if($request->hasfile('avatar')){
             $file=$request->file('avatar');
             $name=time().$file->getClientOriginalName();
@@ -43,7 +48,9 @@ class TrainerController extends Controller
         }
         $trainer = new Trainer();
         $trainer->name=$request->input('name');
+        $trainer->description=$request->input('description');
         $trainer->avatar=$name;
+        $trainer->slugs=$request->input('name');
         $trainer->save();
         return 'guardado';
     }
@@ -54,9 +61,9 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Trainer $trainer)
     {
-        //
+        return view('trainer.show',compact('trainer'));
     }
 
     /**
@@ -65,9 +72,9 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Trainer $trainer)
     {
-        //
+        return view('trainer.edit',compact('trainer'));
     }
 
     /**
@@ -77,9 +84,16 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Trainer $trainer)
     {
-        //
+        $trainer->fill($request->except('avatar'));
+        if($request->hasfile('avatar')){
+            $file=$request->file('avatar');
+            $name=time().$file->getClientOriginalName();
+            $file->move(public_path().'/images/',$name);
+        }
+        $trainer->save();
+        return 'listo';
     }
 
     /**
