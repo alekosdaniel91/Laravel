@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Trainer;
+use App\Http\Requests\StoreTrainerRequest;
 
 class TrainerController extends Controller
 {
@@ -34,13 +35,9 @@ class TrainerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTrainerRequest $request)
     {
-        $validateData=$request->validate([
-            'name'=>'required|max:10',
-            'avatar'=>'required|image',
-            'description'=>'required'
-        ]);
+        
         if($request->hasfile('avatar')){
             $file=$request->file('avatar');
             $name=time().$file->getClientOriginalName();
@@ -52,7 +49,7 @@ class TrainerController extends Controller
         $trainer->avatar=$name;
         $trainer->slugs=$request->input('name');
         $trainer->save();
-        return 'guardado';
+        return redirect()->route('trainer.index');
     }
 
     /**
@@ -93,7 +90,7 @@ class TrainerController extends Controller
             $file->move(public_path().'/images/',$name);
         }
         $trainer->save();
-        return 'listo';
+        return redirect()->route('trainer.show',[$trainer]);
     }
 
     /**
@@ -102,8 +99,12 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Trainer $trainer)
+    {   
+        $file_path= public_path().'/images/'.$trainer->avatar;
+        \File::delete($file_path);
+        $trainer->delete();
+        return redirect()->route('trainer.index');
+    
     }
 }

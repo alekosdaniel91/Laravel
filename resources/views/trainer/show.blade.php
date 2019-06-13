@@ -9,6 +9,9 @@
           <h5 class="card-title">{{$trainer->name}}</h5>
           <p class="card-text">{{$trainer->description}}</p>
           <a href="/trainer/{{$trainer->slugs}}/edit" class="btn btn-primary">Editar</a>
+          {!! Form::open(['route'=>['trainer.destroy',$trainer->slugs],'method'=>'DELETE'])!!}
+            {!! Form::submit('Eliminar',['class'=>'btn btn-secondary']) !!}
+          {!!Form::close()!!}
         </div>
     </div>
 </div>   

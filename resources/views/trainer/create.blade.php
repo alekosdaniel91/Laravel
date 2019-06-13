@@ -2,6 +2,18 @@
 @section('title', 'trainers')
 @section('content') 
 
+@if($errors->any() )
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+           <li>{{$error}}</li> 
+        @endforeach
+    </ul>
+
+</div>    
+    
+@endif
+
     {!! Form::open(['route'=>'trainer.store', 'method'=>'POST', 'files' => true]) !!}
         @include('trainer.form')
         {!! Form::submit('guardar',['class'=>'btn btn-primary']) !!}
