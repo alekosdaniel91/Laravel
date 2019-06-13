@@ -2,6 +2,8 @@
 @section('title', 'trainers Edit')
 @section('content')
 <div class="col-sm">
+  @include('commons.status')
+  @include('commons.errors')
     <div class="card text-center" style="margin-top: 5px" >
         <img style="height:200px;width:200px;margin:20px; background-color: #efefef;" 
         class="card-img-top rounded-circle mx-auto d-block" src="/images/{{$trainer->avatar}}" alt="">

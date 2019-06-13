@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'trainers')
 @section('content')
+@include('commons.errors')
     <div class="row">
         @foreach ($trainers as $trainer)
             <div class="col-sm">

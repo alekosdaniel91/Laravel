@@ -90,7 +90,7 @@ class TrainerController extends Controller
             $file->move(public_path().'/images/',$name);
         }
         $trainer->save();
-        return redirect()->route('trainer.show',[$trainer]);
+        return redirect()->route('trainer.show',[$trainer])->with('status','actualizado correctamente');
     }
 
     /**
