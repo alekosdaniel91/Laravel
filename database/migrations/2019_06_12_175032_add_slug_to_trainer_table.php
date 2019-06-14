@@ -26,7 +26,7 @@ class AddSlugToTrainerTable extends Migration
     public function down()
     {
         Schema::table('trainers', function (Blueprint $table) {
-            $table->dropColumn('slug');
+            $table->dropColumn('slugs');
         });
     }
 }
