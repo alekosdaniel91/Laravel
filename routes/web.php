@@ -20,7 +20,9 @@ Route::get('/name/{name}/{lastname}', function ($name,$lastname) {
 });
 
 Route::resource('trainer','TrainerController');
-Route::get('prueba/{name}','ControllerTest@prueba');
+Route::resource('trainer','TrainerController');
+
+Route::get('prueba','ControllerTest@prueba');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
