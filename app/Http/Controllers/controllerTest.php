@@ -22,9 +22,22 @@ class ControllerTest extends Controller
                 ['onwer'=>'Bart','name'=>'patineta'],
                 ['onwer'=>'Maggie','name'=>'chupon']
 
-            ]);
+            ],200);
         }
         return view('pruebas.prueba');
+        
+    }
+    public function store(Request $request)
+    {
+        if($request->ajax()){
+            $objetos= new Propietarios;
+            $objetos->name=$request->input('name');
+            $objetos->picture=$request->input('picture');
+            $objetos->save();
+        }
+        return response()->json([
+            'message'=>'creado correctamente',
+        ],200);
         
     }
 }
